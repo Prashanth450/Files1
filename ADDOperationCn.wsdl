@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created by TIBCO WSDL-->
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://xmlns.example.com/1633669629004/OperationImpl/Process/MainProcess" xmlns:ns0="http://www.tibco.com/schemas/SEP_WEBSERVICES/SharedResources/Schema/Schema.xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="Untitled" targetNamespace="http://xmlns.example.com/1633669629004/OperationImpl/Process/MainProcess">
+    <wsdl:types>
+        <xs:schema xmlns="http://www.tibco.com/schemas/SEP_WEBSERVICES/SharedResources/Schema/Schema.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tibco.com/schemas/SEP_WEBSERVICES/SharedResources/Schema/Schema.xsd" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xs:element name="ADDOperations">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="ns0:ADDReq"/>
+                        <xs:element ref="ns0:ADDResp"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ADDReq">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="NUM1" type="xs:int"/>
+                        <xs:element name="NUM2" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ADDResp">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Result" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:service name="ADDImplProceses">
+        <wsdl:port name="SOAPEventSource" binding="tns:SOAPEventSourceBinding">
+            <soap:address location="http://localhost:1478/Process/MainProcess/ADDImplProceses"/>
+        </wsdl:port>
+    </wsdl:service>
+    <wsdl:portType name="PortType">
+        <wsdl:operation name="Operation">
+            <wsdl:input message="tns:ADDReqmessage"/>
+            <wsdl:output message="tns:ADDRespMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="SOAPEventSourceBinding" type="tns:PortType">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="Operation">
+            <soap:operation style="rpc" soapAction="/Process/MainProcess/ADDImplProceses"/>
+            <wsdl:input>
+                <soap:body use="literal" namespace="http://InputMessageNamespace" parts="ADDReq"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" namespace="http://OutputMessageNamespace" parts="ADDRespMessage"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:message name="ADDReqmessage">
+        <wsdl:part name="ADDReq" element="ns0:ADDReq"/>
+    </wsdl:message>
+    <wsdl:message name="ADDRespMessage">
+        <wsdl:part name="ADDRespMessage" element="ns0:ADDResp"/>
+    </wsdl:message>
+</wsdl:definitions>
